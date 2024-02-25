@@ -1,6 +1,7 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Requests;
 using Business.Dtos.Responses;
+using DataAccess.Abstracts;
 using Entities.Concretes;
 using System;
 using System.Collections.Generic;
@@ -42,10 +43,24 @@ namespace Business.Concretes
 
         public List<GetAllBrandResponse> GetAll()
         {
-            throw new NotImplementedException();
+            List<Brand> brands = _brandDal.GetAll();
+
+            List<GetAllBrandResponse> getAllBrandResponses = new List<GetAllBrandResponse>();
+
+            foreach (var brand in brands)
+            {
+                GetAllBrandResponse getAllBrandResponse = new GetAllBrandResponse();
+                getAllBrandResponse.Name = brand.Name;
+                getAllBrandResponse.Id = brand.Id;
+                getAllBrandResponse.CreatedDate = brand.CreatedDate;
+
+                getAllBrandResponses.Add(getAllBrandResponse);
+            }
+
+            return getAllBrandResponses;
+
+
+
         }
-
-
-
     }
 }
